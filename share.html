@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>JTF Share</title>
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="grain"></div>
+  <div class="break-flash" id="breakFlash"></div>
+
+  <div class="badges">
+    <div class="badge category" id="badgeCategory">HYBRID</div>
+    <div class="badge episode" id="badgeEpisode">LIVE</div>
+  </div>
+
+  <div class="share">
+    <div class="share-main"></div>
+
+    <div class="share-side">
+      <div class="reaction-frame">
+        <div class="live-dot">LIVE</div>
+        <div class="reaction-tag">
+          JAE CZAR
+          <small>LIVE REACTION</small>
+        </div>
+      </div>
+
+      <div class="topic active" id="topic1">
+        <span class="topic-number" id="topicNum">TOPIC 01</span>
+        <span id="topic1Text">TOPIC 1</span>
+      </div>
+      <div class="topic" id="topic2"><span id="topic2Text">TOPIC 2</span></div>
+      <div class="topic" id="topic3"><span id="topic3Text">TOPIC 3</span></div>
+      <div class="topic" id="topic4"><span id="topic4Text">TOPIC 4</span></div>
+      <div class="topic" id="topic5"><span id="topic5Text">TOPIC 5</span></div>
+      <div class="topic" id="topic6"><span id="topic6Text">TOPIC 6</span></div>
+    </div>
+  </div>
+
+  <div class="ticker" id="tickerBar">
+    <div class="ticker-content" id="tickerText">LOADING TICKER...</div>
+  </div>
+
+  <div class="logo-watermark" id="logoMark">
+    <img src="assets/logo.png" style="width:100%;" />
+  </div>
+
+  <script src="js/ticker.js"></script>
+  <script src="js/overlay.js"></script>
+</body>
+</html>

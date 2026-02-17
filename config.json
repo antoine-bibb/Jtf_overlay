@@ -1,0 +1,9 @@
+{
+  "showTitle": "JUS THE FACTS",
+  "hostName": "JAE CZAR",
+  "hostSub": "Host | Jus The Facts",
+  "defaultCategory": "HYBRID",
+  "tickerRotateSeconds": 8,
+  "tickerRefreshSeconds": 5,
+  "topicsRefreshSeconds": 5
+}
