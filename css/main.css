@@ -146,7 +146,7 @@ body::after {
   position: relative;
   overflow: hidden;
   background: #11151c;
-  padding: 26px; /* larger padding */
+  padding: 22px; /* larger padding */
   margin-bottom: 18px;
   border-left: 4px solid transparent;
   font-size: 22px; /* bigger text */
