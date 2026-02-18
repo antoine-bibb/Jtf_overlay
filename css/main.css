@@ -131,55 +131,45 @@ body::after {
   color: #999;
 }
 
-/* =========================
-   TOPICS PANEL (2X BIGGER)
-========================= */
-
-.topics {
-  position: absolute;
-  top: 120px;
-  right: 70px;
-  width: 600px;
-}
-
-#topicNum {
-  margin-bottom: 18px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  opacity: 0.6;
-  font-size: 18px;
-}
-
 .topic {
-  background: var(--panel);
-  padding: 22px;
-  margin-bottom: 16px;
-  border-left: 3px solid transparent;
-  font-size: 26px;
-  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  background: #11151c;
+  padding: 18px;
+  margin-bottom: 12px;
+  transition: transform 0.2s ease;
 }
 
 .topic.active {
-  transform: scale(1.07);
+  transform: scale(1.08);
   border-left: 4px solid var(--accent);
   box-shadow: 0 0 20px var(--accent-glow);
-  background: #151a22;
-  font-weight: 600;
 }
 
-.topic.active::after {
+/* ESPN SWIPE */
+.topic.swipe::before {
   content: "";
-  display: block;
-  height: 3px;
-  background: var(--accent);
-  margin-top: 8px;
-  animation: sweep 0.5s ease forwards;
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 0, 0, 0.6),
+    transparent
+  );
+  animation: espnSwipe 0.5s ease forwards;
+  z-index: 2;
+  pointer-events: none;
 }
 
-@keyframes sweep {
-  from { width: 0%; }
-  to { width: 100%; }
+@keyframes espnSwipe {
+  0% { left: -100%; }
+  100% { left: 100%; }
 }
+
 
 /* =========================
    TICKER
