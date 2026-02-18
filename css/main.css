@@ -378,3 +378,50 @@ body::after {
   opacity: 0.9;
   transition: transform 0.05s linear;
 }
+
+/* =========================
+   TOP LEFT CTA BAR
+========================= */
+
+.cta-bar {
+  position: absolute;
+  top: 30px;
+  left: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: 14px;
+  z-index: 50;
+}
+
+.cta-btn {
+  padding: 6px 16px;
+  border: 2px solid var(--accent);
+  background: rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+}
+
+.cta-dot {
+  opacity: 0.6;
+}
+
+/* Click animation */
+.cta-btn.clicked {
+  background: var(--accent);
+  color: white;
+  box-shadow: 0 0 20px var(--accent-glow);
+  transform: scale(1.1);
+}
+
+/* Idle glow */
+.cta-btn {
+  animation: ctaIdle 4s infinite alternate ease-in-out;
+}
+
+@keyframes ctaIdle {
+  from { box-shadow: 0 0 6px rgba(160,0,0,0.3); }
+  to { box-shadow: 0 0 12px rgba(160,0,0,0.7); }
+}
+
