@@ -148,7 +148,7 @@ body::after {
   background: #11151c;
   padding: 26px; /* larger padding */
   margin-bottom: 18px;
- 
+  border-left: 4px solid transparent;
   font-size: 22px; /* bigger text */
   font-weight: 600;
   letter-spacing: 0.5px;
