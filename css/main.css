@@ -321,3 +321,8 @@ body::after {
   80% { opacity: 1; }
   100% { opacity: 0; visibility: hidden; }
 }
+function setTopic(n) {
+  STATE.active = n;
+  applyTopics(STATE);
+  burstLogo();
+}
