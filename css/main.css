@@ -123,6 +123,19 @@ body::after {
   opacity: 0.7;
 }
 
+.glitch-name span {
+  display: inline-block;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+/* Random red flicker animation */
+@keyframes redFlicker {
+  0% { color: #e6e6e6; text-shadow: none; }
+  50% { color: var(--accent); text-shadow: 0 0 12px var(--accent-glow); }
+  100% { color: #e6e6e6; text-shadow: none; }
+}
+
+
 #hostSub {
   position: absolute;
   bottom: -75px;
