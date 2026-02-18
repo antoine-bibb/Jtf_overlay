@@ -2,49 +2,141 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Share Screen</title>
-<link rel="stylesheet" href="css/main.css">
+<title>JTF Share Screen</title>
+
 <style>
-body {
+* {
   margin:0;
-  background:#0b0b0f;
+  padding:0;
+  box-sizing:border-box;
 }
+
+body {
+  width:1920px;
+  height:1080px;
+  background:#0b0b0f;
+  overflow:hidden;
+  font-family:Arial, sans-serif;
+}
+
+/* ===== Background Branding ===== */
+
+.bg-branding {
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:
+    radial-gradient(circle at 20% 50%, rgba(255,0,0,.08), transparent 60%),
+    radial-gradient(circle at 80% 30%, rgba(255,0,0,.05), transparent 60%),
+    #0b0b0f;
+}
+
+.brand-text {
+  position:absolute;
+  bottom:40px;
+  right:60px;
+  font-size:80px;
+  font-weight:bold;
+  color:rgba(255,0,0,.05);
+  letter-spacing:4px;
+}
+
+/* ===== Layout Grid ===== */
 
 .layout {
+  position:absolute;
+  width:100%;
+  height:100%;
   display:flex;
-  width:100vw;
-  height:100vh;
 }
+
+/* ===== Camera Left (Tall but Balanced) ===== */
 
 .camera-box {
-  width:28%;
+  width:540px; /* 28% of 1920 */
   height:100%;
-  border-right:3px solid #ff1c1c;
-  box-shadow:0 0 25px rgba(255,0,0,.5);
+  padding:40px;
 }
+
+.camera-frame {
+  width:100%;
+  height:900px;
+  border:3px solid #ff1c1c;
+  box-shadow:0 0 30px rgba(255,0,0,.5);
+  position:relative;
+}
+
+.camera-label {
+  position:absolute;
+  top:-35px;
+  left:0;
+  font-size:18px;
+  letter-spacing:2px;
+  color:#ff1c1c;
+}
+
+/* ===== Share Area ===== */
 
 .share-box {
-  width:72%;
-  height:100%;
+  flex:1;
+  padding:40px 40px 40px 0;
 }
 
-.brand-corner {
-  position:absolute;
-  bottom:20px;
-  left:20px;
-  font-size:18px;
-  opacity:.7;
+.share-frame {
+  width:100%;
+  height:100%;
+  border:3px solid #ff1c1c;
+  box-shadow:0 0 30px rgba(255,0,0,.4);
+  position:relative;
 }
+
+.share-label {
+  position:absolute;
+  top:-35px;
+  left:0;
+  font-size:18px;
+  letter-spacing:2px;
+  color:#ff1c1c;
+}
+
+/* ===== Subtle Glow Animation ===== */
+
+@keyframes slowPulse {
+  0% { box-shadow:0 0 25px rgba(255,0,0,.4); }
+  50% { box-shadow:0 0 45px rgba(255,0,0,.7); }
+  100% { box-shadow:0 0 25px rgba(255,0,0,.4); }
+}
+
+.camera-frame,
+.share-frame {
+  animation:slowPulse 4s infinite ease-in-out;
+}
+
 </style>
 </head>
+
 <body>
 
-<div class="layout">
-  <div class="camera-box"></div>
-  <div class="share-box"></div>
-</div>
+<div class="bg-branding"></div>
+<div class="brand-text">JUS THE FACTS</div>
 
-<div class="brand-corner">JusTheFacts with Jae</div>
+<div class="layout">
+
+  <!-- CAMERA -->
+  <div class="camera-box">
+    <div class="camera-frame">
+      <div class="camera-label">LIVE CAMERA</div>
+    </div>
+  </div>
+
+  <!-- SHARE -->
+  <div class="share-box">
+    <div class="share-frame">
+      <div class="share-label">SCREEN SHARE</div>
+    </div>
+  </div>
+
+</div>
 
 </body>
 </html>
