@@ -175,3 +175,10 @@ function generateParticles() {
 }
 
 generateParticles();
+function toggleFactMode() {
+  document.body.classList.toggle("fact-mode");
+}
+
+window.addEventListener("keydown", (e) => {
+  if (e.key === "f") toggleFactMode();
+});
