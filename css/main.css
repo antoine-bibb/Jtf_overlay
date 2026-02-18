@@ -137,8 +137,8 @@ body::after {
 .topics {
   position: absolute;
   top: 120px;
-  right: 70px;
-  width: 680px;   /* control panel width */
+  right: 80px;
+  width: 520px;   /* control panel width */
   max-width: 680px;
   z-index: 5;
 }
