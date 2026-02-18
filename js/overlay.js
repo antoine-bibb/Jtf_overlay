@@ -78,7 +78,7 @@ function setTopic(n) {
 }
 
 /* =========================
-   LOAD TEXT DATA ONLY
+   LOAD DATA
 ========================= */
 
 async function loadTopics() {
@@ -103,12 +103,45 @@ async function loadConfig() {
     const hostName = document.getElementById("hostName");
     const hostSub = document.getElementById("hostSub");
 
-    if (hostName) hostName.textContent = cfg.hostName || "JAE CZAR";
-    if (hostSub) hostSub.textContent = cfg.hostSub || "Host | Jus The Facts";
+    if (hostName) {
+      hostName.innerHTML = buildAnimatedName(cfg.hostName || "JAE CZAR");
+    }
+
+    if (hostSub) {
+      hostSub.textContent = cfg.hostSub || "Host | Jus The Facts";
+    }
 
   } catch (err) {
     console.log("Config load error:", err);
   }
+}
+
+/* =========================
+   JAE CZAR RANDOM RED LETTER
+========================= */
+
+function buildAnimatedName(name) {
+  return name
+    .split("")
+    .map(char => {
+      if (char === " ") return "<span>&nbsp;</span>";
+      return `<span>${char}</span>`;
+    })
+    .join("");
+}
+
+function randomLetterPulse() {
+  const letters = document.querySelectorAll("#hostName span");
+  if (!letters.length) return;
+
+  const randomIndex = Math.floor(Math.random() * letters.length);
+  const letter = letters[randomIndex];
+
+  letter.style.animation = "redFlicker 0.5s ease";
+
+  setTimeout(() => {
+    letter.style.animation = "";
+  }, 500);
 }
 
 /* =========================
@@ -141,4 +174,5 @@ window.addEventListener("DOMContentLoaded", async () => {
   await loadTopics();
 
   setInterval(loadTopics, 5000);
+  setInterval(randomLetterPulse, 1200);
 });
