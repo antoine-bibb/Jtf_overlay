@@ -2,9 +2,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JTF Share Screen</title>
-
+<title>Jus The Facts - Share Screen</title>
 <style>
+
+/* RESET */
 * {
   margin:0;
   padding:0;
@@ -14,129 +15,219 @@
 body {
   width:1920px;
   height:1080px;
-  background:#0b0b0f;
   overflow:hidden;
-  font-family:Arial, sans-serif;
+  background:#0a0a0a;
+  font-family:Arial, Helvetica, sans-serif;
+  color:white;
 }
 
-/* ===== Background Branding ===== */
-
-.bg-branding {
+/* BACKGROUND */
+body::before {
+  content:"";
   position:absolute;
   width:100%;
   height:100%;
   background:
-    radial-gradient(circle at 20% 50%, rgba(255,0,0,.08), transparent 60%),
-    radial-gradient(circle at 80% 30%, rgba(255,0,0,.05), transparent 60%),
-    #0b0b0f;
+    radial-gradient(circle at 70% 50%, rgba(255,0,0,.15), transparent 60%),
+    linear-gradient(180deg, #111, #0a0a0a);
+  z-index:-2;
 }
 
-.brand-text {
-  position:absolute;
-  bottom:40px;
-  right:60px;
-  font-size:80px;
-  font-weight:bold;
-  color:rgba(255,0,0,.05);
-  letter-spacing:4px;
-}
-
-/* ===== Layout Grid ===== */
-
-.layout {
+/* subtle particles */
+body::after {
+  content:"";
   position:absolute;
   width:100%;
   height:100%;
+  background-image:
+    radial-gradient(rgba(255,0,0,.4) 1px, transparent 1px);
+  background-size:4px 4px;
+  opacity:.03;
+  z-index:-1;
+}
+
+/* LAYOUT GRID */
+.wrapper {
   display:flex;
-}
-
-/* ===== Camera Left (Tall but Balanced) ===== */
-
-.camera-box {
-  width:540px; /* 28% of 1920 */
+  width:100%;
   height:100%;
-  padding:40px;
 }
 
+/* LEFT CAMERA COLUMN */
+.camera-column {
+  width:22%;
+  height:100%;
+  position:relative;
+  padding:40px 30px;
+}
+
+/* CAMERA FRAME */
 .camera-frame {
-  width:100%;
-  height:900px;
-  border:3px solid #ff1c1c;
-  box-shadow:0 0 30px rgba(255,0,0,.5);
   position:relative;
+  width:100%;
+  height:85%;
+  border:2px solid rgba(255,0,0,.6);
+  box-shadow:0 0 20px rgba(255,0,0,.3);
+  overflow:hidden;
 }
 
-.camera-label {
+/* AUDIO REACTIVE GLOW */
+:root {
+  --mic:0;
+}
+
+.camera-frame::before {
+  content:"";
   position:absolute;
-  top:-35px;
+  inset:-4px;
+  border:4px solid rgba(255,0,0,.5);
+  filter:blur(10px);
+  opacity:calc(var(--mic) * 1.5);
+  transition:opacity .1s linear;
+}
+
+/* INNER CAMERA AREA (PUT OBS CAM HERE) */
+.camera-inner {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:90%;
+  height:75%;
+  border:2px solid rgba(255,0,0,.4);
+}
+
+/* NAME STRIP */
+.camera-name {
+  position:absolute;
+  bottom:30px;
   left:0;
-  font-size:18px;
+  width:100%;
+  text-align:left;
+}
+
+.camera-name h2 {
+  font-size:24px;
   letter-spacing:2px;
+}
+
+.camera-name span {
+  font-size:14px;
   color:#ff1c1c;
+  letter-spacing:1px;
 }
 
-/* ===== Share Area ===== */
-
-.share-box {
-  flex:1;
-  padding:40px 40px 40px 0;
+/* RIGHT SHARE AREA */
+.share-column {
+  width:78%;
+  height:100%;
+  padding:40px 40px 40px 10px;
 }
 
+/* SHARE FRAME */
 .share-frame {
   width:100%;
   height:100%;
-  border:3px solid #ff1c1c;
-  box-shadow:0 0 30px rgba(255,0,0,.4);
+  border:3px solid rgba(255,0,0,.6);
+  box-shadow:0 0 25px rgba(255,0,0,.4);
   position:relative;
 }
 
-.share-label {
+/* BRANDING WATERMARK */
+.brand-watermark {
   position:absolute;
-  top:-35px;
-  left:0;
-  font-size:18px;
+  bottom:20px;
+  right:30px;
+  font-size:28px;
+  font-weight:bold;
+  opacity:.15;
+  letter-spacing:2px;
+}
+
+/* TOP LABEL */
+.top-label {
+  position:absolute;
+  top:20px;
+  left:30px;
+  font-size:14px;
   letter-spacing:2px;
   color:#ff1c1c;
-}
-
-/* ===== Subtle Glow Animation ===== */
-
-@keyframes slowPulse {
-  0% { box-shadow:0 0 25px rgba(255,0,0,.4); }
-  50% { box-shadow:0 0 45px rgba(255,0,0,.7); }
-  100% { box-shadow:0 0 25px rgba(255,0,0,.4); }
-}
-
-.camera-frame,
-.share-frame {
-  animation:slowPulse 4s infinite ease-in-out;
 }
 
 </style>
 </head>
-
 <body>
 
-<div class="bg-branding"></div>
-<div class="brand-text">JUS THE FACTS</div>
+<div class="wrapper">
 
-<div class="layout">
+  <!-- LEFT CAMERA -->
+  <div class="camera-column">
 
-  <!-- CAMERA -->
-  <div class="camera-box">
-    <div class="camera-frame">
-      <div class="camera-label">LIVE CAMERA</div>
-    </div>
+      <div class="camera-frame">
+
+          <div class="camera-inner">
+              <!-- PLACE OBS CAMERA SOURCE HERE -->
+          </div>
+
+          <div class="camera-name">
+              <h2>JAE CZAR</h2>
+              <span>Host | Jus The Facts</span>
+          </div>
+
+      </div>
+
   </div>
 
-  <!-- SHARE -->
-  <div class="share-box">
-    <div class="share-frame">
-      <div class="share-label">SCREEN SHARE</div>
-    </div>
+  <!-- RIGHT SHARE -->
+  <div class="share-column">
+
+      <div class="share-frame">
+          <!-- PLACE DISPLAY CAPTURE OR WINDOW CAPTURE HERE -->
+          <div class="brand-watermark">JUS THE FACTS</div>
+      </div>
+
   </div>
 
 </div>
+
+<script>
+
+/* AUDIO REACTIVE GLOW */
+async function initAudioMeter() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const source = audioContext.createMediaStreamSource(stream);
+    const analyser = audioContext.createAnalyser();
+
+    analyser.fftSize = 256;
+    source.connect(analyser);
+
+    const dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+    function animate() {
+      analyser.getByteFrequencyData(dataArray);
+
+      let sum = 0;
+      for (let i = 0; i < dataArray.length; i++) {
+        sum += dataArray[i];
+      }
+
+      let avg = sum / dataArray.length;
+      document.documentElement.style.setProperty("--mic", avg / 255);
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  } catch (err) {
+    console.log("Mic not allowed.");
+  }
+}
+
+initAudioMeter();
+
+</script>
 
 </body>
 </html>
