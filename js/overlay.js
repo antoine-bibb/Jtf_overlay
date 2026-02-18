@@ -176,3 +176,29 @@ window.addEventListener("DOMContentLoaded", async () => {
   setInterval(loadTopics, 5000);
   setInterval(randomLetterPulse, 1200);
 });
+/* =========================
+   RANDOM CTA CLICK
+========================= */
+
+function randomCTAClick() {
+  const buttons = [
+    document.getElementById("ctaLike"),
+    document.getElementById("ctaComment"),
+    document.getElementById("ctaSubscribe")
+  ];
+
+  const randomBtn = buttons[Math.floor(Math.random() * buttons.length)];
+  if (!randomBtn) return;
+
+  randomBtn.classList.add("clicked");
+
+  setTimeout(() => {
+    randomBtn.classList.remove("clicked");
+  }, 900);
+}
+
+// Trigger every 5 minutes
+setInterval(randomCTAClick, 300000);
+
+// Trigger once after 10 seconds
+setTimeout(randomCTAClick, 10000);
