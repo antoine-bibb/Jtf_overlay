@@ -289,3 +289,12 @@ body{ margin:0; background:transparent; font-family: Arial, sans-serif; overflow
   grid-template-columns: 1fr;
   gap:10px;
 }
+body {
+  transform-origin: top left;
+}
+
+@media (max-width: 768px) {
+  body {
+    transform: scale(0.5);
+  }
+}
