@@ -191,13 +191,48 @@ body::after {
    LOGO
 ========================= */
 
+/* =========================
+   WAR ROOM TEXT LOGO
+========================= */
+
 .logo {
   position: absolute;
   bottom: 90px;
   right: 80px;
-  width: 180px;
-  filter: drop-shadow(0 0 20px var(--accent-glow));
-  transition: transform 0.25s ease;
+  text-align: right;
+  z-index: 10;
+}
+
+.logo-sub {
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: #888;
+  margin-bottom: 4px;
+}
+
+.logo-main {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+
+.logo-line {
+  height: 2px;
+  width: 100%;
+  background: #a00000;
+  margin-top: 6px;
+  box-shadow: 0 0 10px rgba(160,0,0,0.7);
+}
+
+/* subtle pulse */
+.logo-main {
+  animation: logoPulse 6s infinite alternate ease-in-out;
+}
+
+@keyframes logoPulse {
+  from { text-shadow: 0 0 5px rgba(160,0,0,0.4); }
+  to { text-shadow: 0 0 15px rgba(160,0,0,0.8); }
 }
 
 .logo.burst {
