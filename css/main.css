@@ -100,8 +100,9 @@ body::after {
   border: 2px solid var(--accent);
   background: rgba(0,0,0,0.6);
   box-shadow:
-    0 0 calc(20px + var(--mic) * 25px) var(--accent-glow),
+    0 0 10px rgba(160,0,0,0.3),
     inset 0 0 40px rgba(0,0,0,0.8);
+  transition: box-shadow 0.05s linear;
 }
 
 /* Studio light rim effect */
