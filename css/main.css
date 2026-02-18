@@ -90,23 +90,29 @@ body::after {
    CAMERA FRAME (INTENSE GLOW)
 ========================= */
 
+/* =========================
+   CAMERA FRAME (TRANSPARENT CENTER)
+========================= */
+
 .camera-frame {
   position: absolute;
   top: 120px;
   left: 70px;
   width: 1200px;
   height: 675px;
+
+  background: transparent; /* THIS IS THE FIX */
+
   border: 3px solid var(--accent);
-  background: rgba(0,0,0,0.6);
 
   box-shadow:
     0 0 calc(80px + var(--mic) * 350px) var(--accent-glow),
     0 0 calc(160px + var(--mic) * 500px) rgba(255,0,0,0.45),
-    0 0 calc(250px + var(--mic) * 600px) rgba(255,0,0,0.25),
-    inset 0 0 60px rgba(0,0,0,0.8);
+    0 0 calc(250px + var(--mic) * 600px) rgba(255,0,0,0.25);
 
-  transition: box-shadow 0.08s linear;
+  pointer-events: none; /* ensures webcam interaction unaffected */
 }
+
 
 .camera-frame::before {
   content: "";
