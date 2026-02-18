@@ -326,3 +326,16 @@ function setTopic(n) {
   applyTopics(STATE);
   burstLogo();
 }
+/* =========================
+   AUDIO METER
+========================= */
+
+.audio-meter {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: 60px;
+  transform-origin: bottom;
+  opacity: 0.8;
+  transition: transform 0.05s linear;
+}
