@@ -1,4 +1,9 @@
-let STATE = null;
+let STATE = {
+  active: 1,
+  topics: [],
+  category: "HYBRID"
+};
+
 let LAST_ACTIVE = null;
 
 /* =========================
@@ -15,17 +20,28 @@ function burstLogo() {
 }
 
 /* =========================
+   ESPN SWIPE
+========================= */
+
+function triggerSwipe(box) {
+  if (!box) return;
+
+  box.classList.remove("swipe");
+  void box.offsetWidth;
+  box.classList.add("swipe");
+}
+
+/* =========================
    APPLY TOPICS
 ========================= */
 
-function applyTopics(data) {
-  if (!data) return;
-
-  const active = Number(data.active || 1);
+function applyTopics() {
+  const active = Number(STATE.active);
 
   const topicNum = document.getElementById("topicNum");
   if (topicNum) {
-    topicNum.textContent = `TOPIC ${String(active).padStart(2, "0")}`;
+    topicNum.textContent =
+      `TOPIC ${String(active).padStart(2, "0")}`;
   }
 
   for (let i = 1; i <= 6; i++) {
@@ -34,19 +50,14 @@ function applyTopics(data) {
 
     if (text) {
       text.textContent =
-        data.topics && data.topics[i - 1]
-          ? data.topics[i - 1]
-          : "";
+        STATE.topics[i - 1] ? STATE.topics[i - 1] : "";
     }
 
     if (box) {
       box.classList.toggle("active", i === active);
 
-      // ESPN swipe trigger
       if (i === active && LAST_ACTIVE !== active) {
-        box.classList.remove("swipe");
-        void box.offsetWidth;
-        box.classList.add("swipe");
+        triggerSwipe(box);
       }
     }
   }
@@ -59,64 +70,73 @@ function applyTopics(data) {
 ========================= */
 
 function setTopic(n) {
-  if (!STATE) return;
-
   if (STATE.active === n) return;
 
   STATE.active = n;
-  applyTopics(STATE);
+  applyTopics();
   burstLogo();
 }
 
 /* =========================
-   LOAD FILES
+   LOAD DATA (TEXT ONLY)
 ========================= */
 
-async function loadConfig() {
-  const r = await fetch("data/config.json", { cache: "no-store" });
-  return r.json();
+async function loadTopics() {
+  try {
+    const r = await fetch("data/topics.json", { cache: "no-store" });
+    const data = await r.json();
+
+    STATE.topics = data.topics || STATE.topics;
+    STATE.category = data.category || STATE.category;
+
+    applyTopics();
+  } catch (err) {
+    console.log("Topic load error:", err);
+  }
 }
 
-async function loadTopics() {
-  const r = await fetch("data/topics.json", { cache: "no-store" });
-  return r.json();
+async function loadConfig() {
+  try {
+    const r = await fetch("data/config.json", { cache: "no-store" });
+    const cfg = await r.json();
+
+    const hostName = document.getElementById("hostName");
+    const hostSub = document.getElementById("hostSub");
+
+    if (hostName) hostName.innerHTML = buildAnimatedName(cfg.hostName || "JAE CZAR");
+    if (hostSub) hostSub.textContent = cfg.hostSub || "Host | Jus The Facts";
+
+  } catch (err) {
+    console.log("Config load error:", err);
+  }
 }
 
 /* =========================
-   INIT
+   RANDOM LETTER ANIMATION
 ========================= */
 
-async function initOverlay() {
-  const cfg = await loadConfig();
-  const topics = await loadTopics();
+function buildAnimatedName(name) {
+  return name
+    .split("")
+    .map(char => {
+      if (char === " ") return "<span>&nbsp;</span>";
+      return `<span>${char}</span>`;
+    })
+    .join("");
+}
 
-  STATE = topics;
+function randomLetterPulse() {
+  const letters = document.querySelectorAll("#hostName span");
+  if (!letters.length) return;
 
-  const hostName = document.getElementById("hostName");
-  const hostSub = document.getElementById("hostSub");
+  const randomIndex = Math.floor(Math.random() * letters.length);
+  const letter = letters[randomIndex];
 
-  if (hostName) hostName.textContent = cfg.hostName || "JAE CZAR";
-  if (hostSub) hostSub.textContent = cfg.hostSub || "Host | Jus The Facts";
+  letter.style.animation = "redFlicker 0.4s ease";
 
-  applyTopics(STATE);
-
-  /* SAFE AUTO REFRESH
-     Will NOT override active topic
-  */
-  setInterval(async () => {
-    try {
-      const next = await loadTopics();
-      if (!next) return;
-
-      // Only update text — NOT active topic
-      STATE.topics = next.topics || STATE.topics;
-      STATE.category = next.category || STATE.category;
-
-      applyTopics(STATE);
-    } catch (err) {
-      console.log("Refresh error:", err);
-    }
-  }, (cfg.topicsRefreshSeconds || 5) * 1000);
+  setTimeout(() => {
+    letter.style.animation = "";
+  }, 400);
 }
 
 /* =========================
@@ -132,8 +152,10 @@ function generateParticles() {
   for (let i = 0; i < 40; i++) {
     const p = document.createElement("span");
     p.style.left = Math.random() * 100 + "vw";
-    p.style.animationDuration = 10 + Math.random() * 15 + "s";
-    p.style.animationDelay = Math.random() * 20 + "s";
+    p.style.animationDuration =
+      10 + Math.random() * 15 + "s";
+    p.style.animationDelay =
+      Math.random() * 20 + "s";
     container.appendChild(p);
   }
 }
@@ -145,7 +167,8 @@ function generateParticles() {
 async function initAudioGlow() {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const audioContext =
+      new (window.AudioContext || window.webkitAudioContext)();
     const source = audioContext.createMediaStreamSource(stream);
     const analyser = audioContext.createAnalyser();
 
@@ -165,7 +188,10 @@ async function initAudioGlow() {
       const average = total / dataArray.length;
       const intensity = average / 255;
 
-      document.documentElement.style.setProperty("--mic", intensity);
+      document.documentElement.style.setProperty(
+        "--mic",
+        intensity
+      );
 
       requestAnimationFrame(animate);
     }
@@ -187,11 +213,16 @@ window.addEventListener("keydown", (e) => {
 });
 
 /* =========================
-   START
+   INIT
 ========================= */
 
-window.addEventListener("DOMContentLoaded", () => {
-  initOverlay();
+window.addEventListener("DOMContentLoaded", async () => {
+  await loadConfig();
+  await loadTopics();
+
   generateParticles();
   initAudioGlow();
+
+  setInterval(loadTopics, 5000);
+  setInterval(randomLetterPulse, 1000 + Math.random() * 2000);
 });
