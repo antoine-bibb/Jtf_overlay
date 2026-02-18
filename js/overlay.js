@@ -182,3 +182,8 @@ function toggleFactMode() {
 window.addEventListener("keydown", (e) => {
   if (e.key === "f") toggleFactMode();
 });
+function setTopic(n) {
+  STATE.active = n;
+  applyTopics(STATE);
+  burstLogo();
+}
