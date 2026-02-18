@@ -78,7 +78,7 @@ function setTopic(n) {
 }
 
 /* =========================
-   LOAD DATA (TEXT ONLY)
+   LOAD TEXT DATA ONLY
 ========================= */
 
 async function loadTopics() {
@@ -103,7 +103,7 @@ async function loadConfig() {
     const hostName = document.getElementById("hostName");
     const hostSub = document.getElementById("hostSub");
 
-    if (hostName) hostName.innerHTML = buildAnimatedName(cfg.hostName || "JAE CZAR");
+    if (hostName) hostName.textContent = cfg.hostName || "JAE CZAR";
     if (hostSub) hostSub.textContent = cfg.hostSub || "Host | Jus The Facts";
 
   } catch (err) {
@@ -112,95 +112,15 @@ async function loadConfig() {
 }
 
 /* =========================
-   RANDOM LETTER ANIMATION
+   OBS MIC LEVEL LISTENER
 ========================= */
 
-function buildAnimatedName(name) {
-  return name
-    .split("")
-    .map(char => {
-      if (char === " ") return "<span>&nbsp;</span>";
-      return `<span>${char}</span>`;
-    })
-    .join("");
-}
-
-function randomLetterPulse() {
-  const letters = document.querySelectorAll("#hostName span");
-  if (!letters.length) return;
-
-  const randomIndex = Math.floor(Math.random() * letters.length);
-  const letter = letters[randomIndex];
-
-  letter.style.animation = "redFlicker 0.4s ease";
-
-  setTimeout(() => {
-    letter.style.animation = "";
-  }, 400);
-}
-
-/* =========================
-   PARTICLES
-========================= */
-
-function generateParticles() {
-  const container = document.querySelector(".particles");
-  if (!container) return;
-
-  container.innerHTML = "";
-
-  for (let i = 0; i < 40; i++) {
-    const p = document.createElement("span");
-    p.style.left = Math.random() * 100 + "vw";
-    p.style.animationDuration =
-      10 + Math.random() * 15 + "s";
-    p.style.animationDelay =
-      Math.random() * 20 + "s";
-    container.appendChild(p);
+window.addEventListener("storage", (e) => {
+  if (e.key === "JTF_MIC") {
+    const level = Math.max(0, Math.min(1, Number(e.newValue)));
+    document.documentElement.style.setProperty("--mic", level);
   }
-}
-
-/* =========================
-   AUDIO REACTIVE GLOW
-========================= */
-
-async function initAudioGlow() {
-  try {
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    const audioContext =
-      new (window.AudioContext || window.webkitAudioContext)();
-    const source = audioContext.createMediaStreamSource(stream);
-    const analyser = audioContext.createAnalyser();
-
-    analyser.fftSize = 256;
-    source.connect(analyser);
-
-    const dataArray = new Uint8Array(analyser.frequencyBinCount);
-
-    function animate() {
-      analyser.getByteFrequencyData(dataArray);
-
-      let total = 0;
-      for (let i = 0; i < dataArray.length; i++) {
-        total += dataArray[i];
-      }
-
-      const average = total / dataArray.length;
-      const intensity = average / 255;
-
-      document.documentElement.style.setProperty(
-        "--mic",
-        intensity
-      );
-
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-  } catch (err) {
-    console.log("Mic permission not granted.");
-  }
-}
+});
 
 /* =========================
    HOTKEYS
@@ -220,9 +140,5 @@ window.addEventListener("DOMContentLoaded", async () => {
   await loadConfig();
   await loadTopics();
 
-  generateParticles();
-  initAudioGlow();
-
   setInterval(loadTopics, 5000);
-  setInterval(randomLetterPulse, 1000 + Math.random() * 2000);
 });
