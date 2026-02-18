@@ -363,4 +363,22 @@ body::after {
   opacity: 0.9;
   transition: transform 0.05s linear;
 }
+.glitch-name span {
+  display: inline-block;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+@keyframes redFlicker {
+  0% { color: #e6e6e6; text-shadow: none; }
+  50% { color: var(--accent); text-shadow: 0 0 18px var(--accent-glow); }
+  100% { color: #e6e6e6; text-shadow: none; }
+}
+
+/* Stronger glow */
+.camera-frame {
+  box-shadow:
+    0 0 calc(60px + var(--mic) * 220px) var(--accent-glow),
+    0 0 calc(100px + var(--mic) * 300px) rgba(255,0,0,0.4),
+    inset 0 0 60px rgba(0,0,0,0.8);
+}
 
