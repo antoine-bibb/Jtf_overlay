@@ -1,25 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
-  <title>JTF Start</title>
-  <link rel="stylesheet" href="css/main.css" />
+<meta charset="UTF-8">
+<title>Starting Soon</title>
+<link rel="stylesheet" href="css/main.css">
+<style>
+body {
+  margin:0;
+  background:#0b0b0f;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  font-family:Arial, sans-serif;
+  color:white;
+}
+
+.start-container {
+  text-align:center;
+}
+
+.countdown {
+  font-size:120px;
+  font-weight:bold;
+  letter-spacing:4px;
+  color:#ff1c1c;
+  text-shadow:0 0 30px rgba(255,0,0,.6);
+}
+
+.start-text {
+  font-size:36px;
+  letter-spacing:6px;
+  margin-bottom:20px;
+  opacity:.8;
+}
+
+.logo-big {
+  width:300px;
+  margin-bottom:40px;
+  animation:pulse 3s infinite;
+}
+
+@keyframes pulse {
+  0% { transform:scale(1); opacity:.9; }
+  50% { transform:scale(1.05); opacity:1; }
+  100% { transform:scale(1); opacity:.9; }
+}
+</style>
 </head>
 <body>
-  <div class="bg"></div>
-  <div class="grain"></div>
 
-  <div class="fullscreen">
-    <img class="big-logo" src="assets/logo.png" />
-    <div class="big-title">Starting Soon</div>
-    <div class="big-sub" id="startSub">JUS THE FACTS • LIVE</div>
-  </div>
+<div class="start-container">
+  <img src="assets/logo.png" class="logo-big">
+  <div class="start-text">STARTING SOON</div>
+  <div class="countdown" id="timer">05:00</div>
+</div>
 
-  <div class="ticker" id="tickerBar">
-    <div class="ticker-content" id="tickerText">LOADING TICKER...</div>
-  </div>
+<script>
+let time = 300; // 5 minutes
 
-  <script src="js/ticker.js"></script>
-  <script src="js/overlay.js"></script>
+function updateTimer() {
+  const minutes = Math.floor(time / 60);
+  const seconds = time % 60;
+  document.getElementById("timer").textContent =
+    `${String(minutes).padStart(2,'0')}:${String(seconds).padStart(2,'0')}`;
+  time--;
+  if (time >= 0) setTimeout(updateTimer, 1000);
+}
+
+updateTimer();
+</script>
+
 </body>
 </html>
