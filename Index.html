@@ -2,56 +2,60 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>JTF Main</title>
+  <title>Jus The Facts Overlay</title>
   <link rel="stylesheet" href="./css/main.css" />
 </head>
 <body>
-  <div class="bg"></div>
-  <div class="grain"></div>
-  <div class="break-flash" id="breakFlash"></div>
 
-  <div class="badges">
-    <div class="badge category" id="badgeCategory">HYBRID</div>
-    <div class="badge episode" id="badgeEpisode">LIVE</div>
+<div class="bg"></div>
+<div class="grain"></div>
+
+<!-- Top Badge -->
+<div class="badge">
+  <span id="badgeCategory">HYBRID</span>
+  <span class="live">LIVE</span>
+</div>
+
+<!-- Camera Frame -->
+<div class="camera-frame">
+  <div id="hostName">JAE CZAR</div>
+  <div id="hostSub">Host | Jus The Facts</div>
+</div>
+
+<!-- Topics Panel -->
+<div class="topics">
+  <div id="topicNum">TOPIC 01</div>
+
+  <div class="topic active" id="topic1">
+    <span id="topic1Text"></span>
   </div>
-
-  <div class="overlay">
-    <div class="left-panel">
-      <div class="camera-frame"></div>
-
-      <div class="lower-third" id="lowerThird">
-        <h1 id="hostName">JAE CZAR</h1>
-        <p id="hostSub">Host | Jus The Facts</p>
-      </div>
-    </div>
-
-    <div class="right-panel">
-      <div class="topic active" id="topic1">
-        <span class="topic-number" id="topicNum">TOPIC 01</span>
-        <span id="topic1Text">TOPIC 1</span>
-      </div>
-      <div class="topic" id="topic2"><span id="topic2Text">TOPIC 2</span></div>
-      <div class="topic" id="topic3"><span id="topic3Text">TOPIC 3</span></div>
-      <div class="topic" id="topic4"><span id="topic4Text">TOPIC 4</span></div>
-      <div class="topic" id="topic5"><span id="topic5Text">TOPIC 5</span></div>
-      <div class="topic" id="topic6"><span id="topic6Text">TOPIC 6</span></div>
-
-      <div class="evidence-label" id="evidenceLabel">EVIDENCE REVIEW</div>
-      <div class="evidence-box" id="evidenceBox">
-        <img id="evidenceImage" src="assets/evidence_placeholder.jpg" />
-      </div>
-    </div>
+  <div class="topic" id="topic2">
+    <span id="topic2Text"></span>
   </div>
-
-  <div class="ticker" id="tickerBar">
-    <div class="ticker-content" id="tickerText">LOADING TICKER...</div>
+  <div class="topic" id="topic3">
+    <span id="topic3Text"></span>
   </div>
-
-  <div class="logo-watermark" id="logoMark">
-    <img src="assets/logo.png" style="width:100%;" />
+  <div class="topic" id="topic4">
+    <span id="topic4Text"></span>
   </div>
+  <div class="topic" id="topic5">
+    <span id="topic5Text"></span>
+  </div>
+  <div class="topic" id="topic6">
+    <span id="topic6Text"></span>
+  </div>
+</div>
 
-  <script src="js/ticker.js"></script>
-  <script src="js/overlay.js"></script>
+<!-- Ticker -->
+<div class="ticker" id="tickerBar">
+  <div id="tickerText"></div>
+</div>
+
+<!-- Logo -->
+<img src="./assets/logo.png" id="logoMark" class="logo"/>
+
+<script src="./js/ticker.js"></script>
+<script src="./js/overlay.js"></script>
+
 </body>
 </html>
