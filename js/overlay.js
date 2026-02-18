@@ -187,3 +187,43 @@ function setTopic(n) {
   applyTopics(STATE);
   burstLogo();
 }
+async function initAudioMeter() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const source = audioContext.createMediaStreamSource(stream);
+    const analyser = audioContext.createAnalyser();
+
+    analyser.fftSize = 256;
+    source.connect(analyser);
+
+    const dataArray = new Uint8Array(analyser.frequencyBinCount);
+    const meter = document.getElementById("audioMeter");
+
+    function animate() {
+      analyser.getByteFrequencyData(dataArray);
+
+      let values = 0;
+      for (let i = 0; i < dataArray.length; i++) {
+        values += dataArray[i];
+      }
+
+      let average = values / dataArray.length;
+      let scale = Math.min(1 + average / 200, 2);
+
+      if (meter) {
+        meter.style.transform = `scaleY(${scale})`;
+      }
+
+      document.documentElement.style.setProperty("--mic", average / 255);
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  } catch (err) {
+    console.log("Mic not allowed or unavailable.");
+  }
+}
+
+initAudioMeter();
